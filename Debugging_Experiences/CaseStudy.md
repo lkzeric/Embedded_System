@@ -63,7 +63,7 @@
     2. Load the .axf file onto the target CPU to debug from main() using a JTAG debugger
     3. After the CPU set to the first line of main(), single-stepping could be used to locate fail point 
 - Root Cause:
-    1. The fail point was the first commands that controller send to Nand Flash directly
+    1. The fail point was the first commands that controller send to NAND Flash directly
     2. The clock of the controller was not synchronized with the NAND Flash clock, which resulted in the commands being misinterpreted.
 - Solution: 
     1. Confirm that the clock speeds of the controller and NAND Flash have been set correctly.
@@ -77,7 +77,7 @@
     2. Check the attribute of the memory address
 - Root Cause:
     1. In order to accerlate the execution speed, that variable is stored in D-Cache instead of the system buffer (peripheral memory). The CPU can handle data in D-Cache with extremely low latency.
-    2. When using HW_API to program variable into Nand Flash, it would only refer to the data in system buffer. In terms of HW_API, it's not able to see the data stored in D-Cache
+    2. When using HW_API to program variable into NAND Flash, it would only refer to the data in system buffer. In terms of HW_API, it's not able to see the data stored in D-Cache
 - Solution: 
     1. Once the variable's value is finalized, the data must be flushed from D-Cache to system buffer. This ensures HW_API can access the correct data in system buffer.
 
@@ -99,7 +99,7 @@
 
 # 6. Data Misalignment after Power Cycle
 - Fail Scene:
-    1. After power on, one date structure is loaded from Nand Flash. However, this variable appeared to be incorrect.
+    1. After power on, one date structure is loaded from NAND Flash. However, this variable appeared to be incorrect.
 - Debug Step:
     1. To solve this kind of problem, it's important to clearly understand the life cycle of this variable.
     2. After checking if the variable is modified during runtime and the point where it is saved/load, there's no unexpected operation.
@@ -110,11 +110,11 @@
     void Function(){<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;DataStucture* A = MEM_ADDR<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;ProgramFlash_HW_API(A);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;// even though FW executing the next line of ProgramFlash_HW_API(A), it's likely that DataStucture* A has not be programmed into Nand Flash yet<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;// even though FW executing the next line of ProgramFlash_HW_API(A), it's likely that DataStucture* A has not be programmed into NAND Flash yet<br>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;// hence, the data is unstable during the period of executing ProgramFlash_HW_API(A) and the data is completely programmed into flash <br> 
      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;}<br>
-    2. The DataStucture* A is programmed by HW_API, but it doesn't guarantee that HW has finished programming DataStucture* A into Nand Flash after FW executing ProgramFlash_HW_API(A).
-    3. Hence, if the value on MEM_ADDR(where DataStucture* A placed) was modified before it's completely programmed, the value save into Nand Flash would be unexpected.
+    2. The DataStucture* A is programmed by HW_API, but it doesn't guarantee that HW has finished programming DataStucture* A into NAND Flash after FW executing ProgramFlash_HW_API(A).
+    3. Hence, if the value on MEM_ADDR(where DataStucture* A placed) was modified before it's completely programmed, the value save into NAND Flash would be unexpected.
 - Solution: 
     1. Add the barrier to ensure HW finished programming.
     2. Copy DataStucture* A to a memory address which will not be modified.

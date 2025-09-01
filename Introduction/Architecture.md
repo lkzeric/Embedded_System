@@ -3,7 +3,7 @@
 - SSD Architecture:
 ![SSD Architecrure](Architecture.png)
 # 2. SSD Controller
-- Role: control the Nand Flash in order to meet the commands from host
+- Role: control the NAND Flash in order to meet the commands from host
 - Architecture
     - CPU1(ARM Cortex-R)
     - CPU2
@@ -40,13 +40,13 @@
 - Role: 
     - Share the overhead of CPU1(ARM Cortex-R)
     - Level is lower than CPU1(ARM Cortex-R). The host for CPU2 is CPU1; the host for CPU1(ARM Cortex-R) is Personal Computer / Server
-    - Send the low-level commnand to Nand Flash
+    - Send the low-level commnand to NAND Flash
 - Key Point
-    - CPU1(ARM Cortex-R) only needs to send top-level commnads (the effort to build these commands is low) to CPU2 which would reorganize these commands into low-level commands which Nand Flash could understand
+    - CPU1(ARM Cortex-R) only needs to send top-level commnads (the effort to build these commands is low) to CPU2 which would reorganize these commands into low-level commands which NAND Flash could understand
     - Not only transfering into low-level commands, CPU2 could optimize different independent commands to the related efficient instructions in order to acheive die-interleaving, plane-interleaving or cache operation to increase the throughput
 
 - Interation for 2 CPUs
-    - Each CPU must have their well-define reponsibilities (e.g., CPU1: service real Host(PC/Server) commands, and manage HW IPs resources; CPU2: directly control Nand Flash)
+    - Each CPU must have their well-define reponsibilities (e.g., CPU1: service real Host(PC/Server) commands, and manage HW IPs resources; CPU2: directly control NAND Flash)
     - Allocate a memory as an area to communicate with each other. It should be careful to read/write this region, or it may occur unexpected behavior. (e.g., read the old data, overwrite the new data). Hence, it needs the lock/mutex to protect that memory while one CPU is manupulating this area.
 
 # 2.3 ROM Code
@@ -73,7 +73,7 @@
     - Arramge RAM for Normal FW
     - Encypted and decrypted IP
     - Copy data (it's faster than CPU's memcpy())  
-    - Table management (record where user data stored in Nand Flash)
+    - Table management (record where user data stored in NAND Flash)
     - Build the PCIe Link with Host
     - Mailbox to connect Normal FW and other HW IP
 
@@ -93,13 +93,13 @@
     - Since RAM is a volatile memory that cannot permanently store data, the data must be transferred to NAND Flash for long-term storage. 
 
 - Points of caution
-    - Be careful of the issue of data coherency (data on RAM is different from that in Nand Flash)
+    - Be careful of the issue of data coherency (data on RAM is different from that in NAND Flash)
     - Be careful to use the same RAM area by different IP (overwrite the data unexpectedly)
 
-# 3. Nand Flash
+# 3. NAND Flash
 - Role:
     - Store the data permenantly
-    - Load the data from Nand Flash to RAM after power cycle
+    - Load the data from NAND Flash to RAM after power cycle
     - Follow the ONFI specification
 - How to store data?
     - Injecting electrons into the cell puts it into a programmed state, which is defined as "0".
