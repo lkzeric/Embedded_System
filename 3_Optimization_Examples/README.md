@@ -1,5 +1,5 @@
 # Optimization Examples
-# 1. Optimize the efficiency of flashing firmware
+# 1. Optimize the Efficiency of Flashing Firmware
 - Original Version
     1. When flashing the firmware, all physical blocks in NAND Flash must be erased to reset the data storage state. Physical blocks are the basic unit to erase in NAND Flash. In this version, the controller issues the erase command to one specific block at a time and does not issue the next erase command until the previous block has been fully erased. If there are four channels, there will be four corresponding busy latencies. The illustration is as follows:
     ![Flash_FW_1](../Image/3_Optimization_Examples/Flash_FW_1.png)
@@ -19,7 +19,7 @@
 
     4. By shortening the total latency required to erase blocks across channels, the overall time spent flashing new firmware is reduced. This optimization improves firmware update efficiency and, in turn, increases productivity on the production line.
 
-# 2. Shorten the latency of firmware update
+# 2. Shorten the Latency of Firmware Update
 - Original Version
     1. The host can issue NVMe commands, such as Firmware Download and Firmware Commit, to update the SSD firmware after it has been flashed on the production line. To execute the new firmware, the device must pass through the ROM Code, which loads the updated firmware into the ATCM. During a firmware update, the CPU clock speed used in ROM Code execution is the same as that used for a normal power cycle. The flow of Firmware Update could be divided into following subsections: <br>
     ![fw_update](../Image/3_Optimization_Examples/fw_update.png)
@@ -36,7 +36,7 @@
     
     3. Increase the CPU clock speed during ROM code execution.
     
-# 3. Optimize the placement of ARM Overlay to enhance the FW execution efficiency 
+# 3. Optimize the Placement of ARM Overlay to Enhance the FW Execution Efficiency 
 - Original Version
     1. When the CPU executes firmware code, the code must reside in the ATCM region, which includes both the common code region and the overlay region. The code in the common region remains static, while the overlay region is dynamically updated by loading code segments from NAND Flash. This continuous loading induces overhead, which can hinder overall performance. If the placement of ARM Overlay could be optimized, it could improve the performance. <br> 
 
@@ -54,7 +54,7 @@
 
     3. To optimize read/write execution speed, I first identify the most frequently used function and its corresponding hierarchical calling path. My goal is to optimize the placement of functions within the overlay along the target calling path. 
 
-    4. The calling path of the function could be expressed as a tree structure as following. The optimization scenario could be classified as two cases:
+    4. The calling path of the function could be expressed as a tree structure as following. The optimization scenario could be classified as two cases: <br>
     ![ARM_Overlay_3](../Image/3_Optimization_Examples/ARM_Overlay_3.png)
         1. Case_1 (Target on the specific function): <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Func_E(red circle) is a very low-level function, and it is preferred to be placed in ATCM’s Common Code. As long as the low-level function is placed in the Common Code, the firmware does not need to switch the Overlay Region regardless of which Overlay was last used, since the Common Code always resides in ATCM. 

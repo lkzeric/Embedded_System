@@ -98,7 +98,7 @@
         ![case_7_4](../Image/2_Debug_Case_Studies/case_7_4.png)
 
    
-# 5. CPU Abort Caused by unexpectedly Overwritting Stack Area
+# 5. CPU Abort Caused by Unexpectedly Overwritting Stack Area
 - Fail Scene: 
     1. An unexpected CPU abort occurred during the execution of normal code.
 

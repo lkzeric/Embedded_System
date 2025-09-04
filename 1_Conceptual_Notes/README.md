@@ -136,8 +136,3 @@
         - Receiving commands from file system, send commands directly to SSD
         - A driver is essential for allowing an operating system to recognize an SSD and access its data.
         - In the perspective of SSD, the host of SSD is driver
-    
-
-# 5. How does controller do while power on?
-# 6. How does controller service host cmd?
-# 7. How does controller read data from the host Read cmd?

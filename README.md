@@ -6,26 +6,29 @@ The content focuses on **debug methodologies, optimization strategies, and embed
 
 ## 📖 Contents
 
+- 📚 **Conceptual Notes**
+  - SSD Controller  
+    - CPU
+    - Normal Firmware
+    - ROM Code
+    - HW IPs
+    - RAM
+  - NAND Flash
+  - Host
+
 - 🔧 **Debug Case Studies**
   - [Case 1] Unexpected Variable Underflow
   - [Case 2] Unexpected Performance Speed Drop
-  - [Case 3] ARM Scatter File
-  - [Case 4] Clock Uncoherency
-  - [Case 5] Data Misalignment
-  - [Case 6] CPU Abort Caused by unexpectedly Overwritting Stack Area
-  - [Case 7] Data Misalignment after Power Cycle
+  - [Case 3] Data Misalignment of D-Cache and RAM
+  - [Case 4] Data Misalignment Caused by Timing Issues between FW and HW
+  - [Case 5] CPU Abort Caused by Unexpectedly Overwritting Stack Area
+  - [Case 6] Clock Uncoherency
+  - [Case 7] Problematic ARM Scatter File
 
 - 🚀 **Optimization Examples**
-  - [Example 1] Optimize the efficiency of flashing firmware 
-  - [Example 2] Shorten the latency of firmware update
-  - [Example 3] Optimize the placement of ARM Overlay to enhance the FW execution efficiency 
-
-- 📚 **Conceptual Notes**
-  - CPU
-  - Normal Firmware
-  - ROM Code
-  - HW IPs
-  - RAM
+  - [Example 1] Optimize the Efficiency of Flashing Firmware
+  - [Example 2] Shorten the Latency of Firmware Update
+  - [Example 3] Optimize the Placement of ARM Overlay to Enhance the FW Execution Efficiency 
 
 
 
