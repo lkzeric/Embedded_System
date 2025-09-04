@@ -1,7 +1,7 @@
 # Solid-State Drive (SSD) Technical Note
 # 1. Overview
 - SSD Architecture:
-![SSD Architecrure](Architecture.png)
+![SSD Architecrure](../image/Architecture.png)
 # 2. SSD Controller
 - Role: control the NAND Flash in order to meet the commands from host
 - Architecture
@@ -111,7 +111,7 @@
     - Copy the data from the old location to a new location. This allows the original location to be erased and reprogrammed with new data.
 
 - Architecture
-    ![Internal Structure](Nand_Arch.png)
+    ![Internal Structure](../image/Nand_Arch.png)
 - Support Basic Cmd
     - Read / Write / Erase / Set&Get feature / Reset
     - the unit to issue a command is die
